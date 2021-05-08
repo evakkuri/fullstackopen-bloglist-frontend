@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
-import Notification from './components/Notification'
+import Notification from './components/Notification/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -95,11 +95,11 @@ const App = () => {
         url: newBlog.url
       })
 
-      console.log(`A new blog "${blog.title}" by ${blog.author} added`)
+      console.log(`A new blog "${blog.title}" by ${blog.author} was added successfully`)
 
       setNotification({
         type: 'success',
-        content: `A new blog "${blog.title}" by ${blog.author} added`
+        content: `A new blog "${blog.title}" by ${blog.author} was added successfully`
       })
 
       setNewBlog({

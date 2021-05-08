@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Notification.css';
 
 const Notification = ({ notifObj }) => {
   if (notifObj === null) {
@@ -10,8 +11,8 @@ const Notification = ({ notifObj }) => {
   }
 
   return (
-    <div className={notifObj.type}>
-      {notifObj.content}
+    <div className={`notification-wrapper ${notifObj.type}`}>
+      <h2>{notifObj.content}</h2>
     </div>
   )
 }
