@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs(blogs)
+      setBlogs(blogs.sort((blog1, blog2) => blog2.likes - blog1.likes))
     )
   }, [])
 
@@ -33,7 +33,7 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    //console.log('logging in with', username, password)
+    console.log('Logging in with', username, password)
 
     try {
       const user = await loginService.login({
@@ -55,7 +55,7 @@ const App = () => {
     }
   }
 
-  const handleLogout = (event) => {
+  const handleLogout = () => {
     window.localStorage.removeItem('loggedInBlogAppUser')
     window.location.reload()
   }

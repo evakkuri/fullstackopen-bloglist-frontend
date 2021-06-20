@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const BlogForm = ({ blogService, setNotification, blogs, setBlogs }) => {
   const [newBlog, setNewBlog] = useState({
@@ -9,7 +9,7 @@ const BlogForm = ({ blogService, setNotification, blogs, setBlogs }) => {
 
   const handleAddBlog = async (event) => {
     event.preventDefault()
-    console.log("Adding new blog...")
+    console.log('Adding new blog...')
 
     try {
       const blog = await blogService.create({
@@ -49,7 +49,7 @@ const BlogForm = ({ blogService, setNotification, blogs, setBlogs }) => {
     <form onSubmit={handleAddBlog}>
       <div>
         Title:
-          <input
+        <input
           type="text"
           value={newBlog.title}
           name="Title"
@@ -58,7 +58,7 @@ const BlogForm = ({ blogService, setNotification, blogs, setBlogs }) => {
       </div>
       <div>
         Author:
-          <input
+        <input
           type="text"
           value={newBlog.author}
           name="Author"
@@ -67,7 +67,7 @@ const BlogForm = ({ blogService, setNotification, blogs, setBlogs }) => {
       </div>
       <div>
         Url:
-          <input
+        <input
           type="text"
           value={newBlog.url}
           name="Url"
