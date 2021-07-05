@@ -23,9 +23,16 @@ const create = async (newObject) => {
 
 const update = async (id, newBlog) => {
   console.log(`Sending request to add like to blog ${id}`)
+
   const response = await axios.put(`${baseUrl}/${id}`, newBlog)
+  console.log(response.status)
   console.log(response.data)
-  return response.data
+
+  if (response.status === 200) {
+    console.log(`Successfully added like to blog ${id}`)
+  }
+
+  return response
 }
 
 const remove = async (id) => {
@@ -36,7 +43,7 @@ const remove = async (id) => {
   console.log(`Deleting blog ${id}...`)
   const response = await axios.delete(`${baseUrl}/${id}`, config)
   console.log(response.status)
-  return response.data
+  return response
 }
 
 const exports = { getAll, create, update, remove, setToken }

@@ -60,6 +60,26 @@ const App = () => {
     window.location.reload()
   }
 
+  const handleAddLike = async (blog) => {
+    const updatedBlog = { ...blog, likes: blog.likes + 1 }
+    console.log(updatedBlog)
+
+    //console.log(`Updating blog ID ${blog.id} with new value ${JSON.stringify(updatedBlog)}`)
+
+    try {
+      blogService.update(blog.id, updatedBlog)
+      setBlogs(blogs.map((blog) => blog.id === updatedBlog.id ? updatedBlog : blog))
+    } catch (exception) {
+      console.log(`Error when adding a like to blog ${blog.id}. Exception: ${exception}`)
+      setNotification({
+        type: 'error',
+        content: `Error when adding a like to blog ${blog.id}. Exception: ${exception}` })
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
+    }
+  }
+
   const loginForm = () => {
     return (
       <Togglable buttonLabel='Log in'>
@@ -77,7 +97,7 @@ const App = () => {
   const blogForm = () => (
     <Togglable buttonLabel='Add new blog'>
       <BlogForm
-        blogService={blogService}
+        createBlog={blogService.create}
         setNotification={setNotification}
         blogs={blogs}
         setBlogs={setBlogs}
@@ -103,7 +123,13 @@ const App = () => {
           {blogForm()}
           <h2>Stored blogs</h2>
           {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
+            <Blog
+              key={blog.id}
+              blog={blog}
+              blogs={blogs}
+              setBlogs={setBlogs}
+              handleAddLike={handleAddLike}
+            />
           )}
         </div>
       }
