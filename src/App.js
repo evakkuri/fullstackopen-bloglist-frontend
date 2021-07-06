@@ -60,11 +60,11 @@ const App = () => {
     window.location.reload()
   }
 
-  const handleAddLike = async (blog) => {
-    const updatedBlog = { ...blog, likes: blog.likes + 1 }
-    console.log(updatedBlog)
+  const handleAddLike = async (blog, event) => {
+    event.preventDefault()
 
-    //console.log(`Updating blog ID ${blog.id} with new value ${JSON.stringify(updatedBlog)}`)
+    const updatedBlog = { ...blog, likes: blog.likes + 1 }
+    console.log(`Updating blog ID ${blog.id} with new value ${JSON.stringify(updatedBlog)}`)
 
     try {
       blogService.update(blog.id, updatedBlog)
