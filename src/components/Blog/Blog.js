@@ -30,31 +30,6 @@ const Blog = ({ blog, blogs, setBlogs, handleAddLike }) => {
   }
 
   /**
-   * Button click function to add a 'like' to a blog entry
-   */
-  /*
-  const addLike = () => {
-    const updatedBlog = { ...blog, likes: blog.likes + 1 }
-
-    console.log(`Updating blog ID ${blog.id} with new value ${JSON.stringify(updatedBlog)}`)
-
-    try {
-      blogService.update(blog.id, updatedBlog)
-    } catch (exception) {
-      console.log(`Error when adding a like to blog ${blog.id}. Exception: ${exception}`)
-      setNotification({
-        type: 'error',
-        content: `Error when adding a like to blog ${blog.id}. Exception: ${exception}` })
-      setTimeout(() => {
-        setNotification(null)
-      }, 5000)
-    }
-
-    setBlogs(blogs.map((blog) => blog.id === updatedBlog.id ? updatedBlog : blog))
-  }
-  */
-
-  /**
    * Button click function to delete a blog
    */
   const deleteBlog = () => {

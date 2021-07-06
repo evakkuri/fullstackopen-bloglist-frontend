@@ -18,6 +18,7 @@ const LoginForm = ({
         <div className='loginform-wrapper'>
           User name
           <input
+            id='username'
             value={username}
             onChange={handleUsernameChange}
           />
@@ -25,12 +26,13 @@ const LoginForm = ({
         <div className='loginform-wrapper'>
           Password
           <input
+            id='password'
             type="password"
             value={password}
             onChange={handlePasswordChange}
           />
         </div>
-        <button type="submit">Log in</button>
+        <button id='login-button' type="submit">Log in</button>
       </form>
     </div>
   )

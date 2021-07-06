@@ -17,9 +17,13 @@ const App = () => {
 
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs(blogs.sort((blog1, blog2) => blog2.likes - blog1.likes))
-    )
+    try {
+      blogService.getAll().then(blogs =>
+        setBlogs(blogs.sort((blog1, blog2) => blog2.likes - blog1.likes))
+      )
+    } catch (exception) {
+      return []
+    }
   }, [])
 
   useEffect(() => {
@@ -73,7 +77,8 @@ const App = () => {
       console.log(`Error when adding a like to blog ${blog.id}. Exception: ${exception}`)
       setNotification({
         type: 'error',
-        content: `Error when adding a like to blog ${blog.id}. Exception: ${exception}` })
+        content: `Error when adding a like to blog ${blog.id}. Exception: ${exception}`
+      })
       setTimeout(() => {
         setNotification(null)
       }, 5000)
