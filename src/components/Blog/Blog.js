@@ -48,7 +48,7 @@ const Blog = ({ blog, blogs, setBlogs, handleAddLike }) => {
     return (
       <div style={blogStyle} className='blog'>
         {blog.author}: {blog.title} ({blog.likes})
-        <button onClick={toggleVisibility}>Show more</button>
+        <button id={`show-more-${blog.id}`} onClick={toggleVisibility}>Show more</button>
       </div>
     )
 
@@ -56,20 +56,20 @@ const Blog = ({ blog, blogs, setBlogs, handleAddLike }) => {
     <div style={blogStyle} className='blogFull'>
       <p>
         {blog.author}: {blog.title}
-        <button onClick={toggleVisibility}>Show less</button>
+        <button id={`show-less-${blog.id}`} onClick={toggleVisibility}>Show less</button>
       </p>
       <p>
         URL: {blog.url}
       </p>
       <p>
         Likes: {blog.likes}
-        <button onClick={(event) => handleAddLike(blog, event)}>Like</button>
+        <button id={`like-${blog.id}`} onClick={(event) => handleAddLike(blog, event)}>Like</button>
       </p>
       <div>
         Added by: {blog.user.name}
       </div>
       <div style={deleteButtonVisible}>
-        <button onClick={deleteBlog}>Delete blog</button>
+        <button id={`delete-blog-${blog.id}`} onClick={deleteBlog}>Delete blog</button>
       </div>
     </div>
   )
