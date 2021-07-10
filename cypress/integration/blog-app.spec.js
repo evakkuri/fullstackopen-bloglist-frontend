@@ -13,7 +13,7 @@ describe('Blog app ', function () {
 
   describe('before logging in', function () {
 
-    it('front page can be opened', function () {
+    it('login form is shown', function () {
       cy.contains('Cool Blog App')
       cy.contains('Log in')
     })
@@ -78,6 +78,78 @@ describe('Blog app ', function () {
         cy.contains('Likes: 0')
         cy.contains('Like').click().click()
         cy.contains('Likes: 2')
+      })
+
+      it('user who created blog can delete it', function() {
+        cy.get('[id$=-testblogtitle]')
+          .contains('Show more')
+          .click()
+        cy.contains('Delete blog').click()
+        cy.get('[id$=-testblogtitle]').should('not.exist')
+      })
+
+      it('user cannot delete a blog added by another user', function() {
+        const user = {
+          name: 'Another User',
+          username: 'test2',
+          password: 'test2'
+        }
+        cy.request('POST', 'http://localhost:3003/api/users/', user)
+        cy.logout()
+        cy.login({ username: 'test2', password: 'test2' })
+
+        cy.get('[id$=-testblogtitle]')
+          .contains('Show more')
+          .click()
+        cy.contains('Delete blog').should('not.be.visible')
+      })
+    })
+
+    describe('and multiple blogs exist', function () {
+      beforeEach(function () {
+        cy.createBlog({ title: 'first', author: 'first', url: 'first' })
+        cy.createBlog({ title: 'second', author: 'second', url: 'second' })
+        cy.createBlog({ title: 'third', author: 'third', url: 'third' })
+      })
+
+      it('likes can be added to one of those', function () {
+        cy.get('[id$=-second]')
+          .contains('Show more')
+          .click()
+
+        cy.get('[id$=-second]')
+          .contains('Like')
+          .click()
+
+        cy.get('[id$=-second]')
+          .contains('Likes: 1')
+      })
+
+      it.only('blogs are displayed in order of most likes', function () {
+        cy.get('[id$=-second]')
+          .contains('Show more')
+          .click()
+
+        cy.get('[id$=-second]')
+          .contains('Like')
+          .click()
+          .click()
+
+        cy.get('[id$=-third]')
+          .contains('Show more')
+          .click()
+
+        cy.get('[id$=-third]')
+          .contains('Like')
+          .click()
+
+        cy.reload()
+
+        cy.get('.blog').then(blogs => {
+          cy.wrap(blogs[0]).contains('second')
+          cy.wrap(blogs[1]).contains('third')
+          cy.wrap(blogs[2]).contains('first')
+        })
       })
     })
   })

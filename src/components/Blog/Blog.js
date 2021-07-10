@@ -29,6 +29,10 @@ const Blog = ({ blog, blogs, setBlogs, handleAddLike }) => {
     marginBottom: 5
   }
 
+  const getBlogIdField = (blogId, blogTitle) => {
+    return [blogId, blogTitle.replace(/\s+/g, '').toLowerCase()].join('-')
+  }
+
   /**
    * Button click function to delete a blog
    */
@@ -46,14 +50,14 @@ const Blog = ({ blog, blogs, setBlogs, handleAddLike }) => {
 
   if (!showFullInfo)
     return (
-      <div style={blogStyle} className='blog'>
+      <div id={getBlogIdField(blog.id, blog.title)} style={blogStyle} className='blog'>
         {blog.author}: {blog.title} ({blog.likes})
         <button id={`show-more-${blog.id}`} onClick={toggleVisibility}>Show more</button>
       </div>
     )
 
   else return (
-    <div style={blogStyle} className='blogFull'>
+    <div id={getBlogIdField(blog.id, blog.title)} style={blogStyle} className='blog'>
       <p>
         {blog.author}: {blog.title}
         <button id={`show-less-${blog.id}`} onClick={toggleVisibility}>Show less</button>
